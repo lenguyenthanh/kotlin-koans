@@ -11,17 +11,17 @@ fun todoTask1(collection: Collection<Int>): Nothing = TODO(
     """,
     references = { JavaCode1().task1(collection) })
 
+fun <T> Collection<T>.tail(): Collection<T> {
+  return this.drop(1)
+}
 
 fun task1(collection: Collection<Int>): String {
-    val sb = StringBuilder()
-    sb.append("{")
-    when (collection.size) {
-         0 -> sb.append("")
-        else -> {
-            sb.append(collection.first())
-            collection.drop(1).fold(sb, { sb, i -> sb.append(", ").append(i) })
-        }
-    }
-    sb.append("}")
-    return sb.toString()
+  val sb = StringBuilder()
+  sb.append("{")
+  if (collection.size > 0) {
+    sb.append(collection.first())
+    collection.tail().fold(sb, { sb, i -> sb.append(", ").append(i) })
+  }
+  sb.append("}")
+  return sb.toString()
 }
